@@ -1,0 +1,13 @@
+[Unit]
+Description=KBS BBSD Daemon
+After=kbs-miscd.service
+
+[Service]
+Type=forking
+User=bbs
+ExecStart=/srv/bbs/bin/bbsd -p %I
+PIDFile=/srv/bbs/var/bbsd.%I.pid
+
+[Install]
+WantedBy=multi-user.target
+
