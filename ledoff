@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for leds in /sys/class/leds/*/trigger 
+do
+	echo none > "$leds" 
+done
