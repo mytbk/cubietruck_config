@@ -1,0 +1,7 @@
+Description="LAN-WLAN Bridge connection"
+Interface=br0
+Connection=bridge
+BindsToInterfaces=()
+IP=no
+## Ignore (R)STP and immediately activate the bridge
+#SkipForwardingDelay=yes
