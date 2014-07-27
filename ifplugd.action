@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# action script for ifplugd on interface <$1>
+
+set -e
+
+case "$2" in
+  up)
+	dhcpcd -w 4 "$1"
+	brctl addbr brv6
+	ifconfig brv6 up
+	brctl addif brv6 wlan0
+	brctl addif brv6 eth0
+	ebtables -t broute -A BROUTING -p ! ipv6 -j DROP
+	exit 0
+  ;;
+  down)
+	brctl delif brv6 eth0
+	brctl delif brv6 wlan0
+	ifconfig brv6 down
+	brctl delbr brv6
+	echo "Going down" > /tmp/ifdown
+	exit 0
+  ;;
+  *)
+    echo "Wrong arguments" >&2
+  ;;
+esac
+
+exit 1
+
