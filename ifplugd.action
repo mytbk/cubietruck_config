@@ -12,6 +12,7 @@ case "$2" in
 	brctl addif brv6 wlan0
 	brctl addif brv6 eth0
 	ebtables -t broute -A BROUTING -p ! ipv6 -j DROP
+	ip -6 route add default via fe80::12bd:18ff:fee5:6200 dev brv6 metric 10
 	exit 0
   ;;
   down)
